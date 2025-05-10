@@ -1493,17 +1493,17 @@ private:
         bool retVal=false;
         forever
         {
-            const auto RemarkMatch = rxRemark.matchView(XML,Ptr);
-            if (RemarkMatch.capturedStart()!=Ptr) break;
-            Ptr+=RemarkMatch.capturedLength(); //skip!
+            const auto RemarkMatch = rxRemark.matchView(XML, Ptr);
+            if (RemarkMatch.capturedStart() != Ptr) break;
+            Ptr += RemarkMatch.capturedLength(); //skip!
         }
 
         forever
         {
-            const auto EntityMatch = rxEntity.matchView(XML,Ptr);
-            if (EntityMatch.capturedStart()!=Ptr) break;
-            entities.insert('&'+EntityMatch.captured(1)+';',EntityMatch.captured(2));
-            Ptr+=EntityMatch.capturedLength();
+            const auto EntityMatch = rxEntity.matchView(XML, Ptr);
+            if (EntityMatch.capturedStart() != Ptr) break;
+            entities.insert('&' + EntityMatch.captured(1) + ';', EntityMatch.captured(2));
+            Ptr += EntityMatch.capturedLength();
             retVal=true;
         }
         return retVal;
@@ -1519,17 +1519,17 @@ private:
             //const auto XMLAttributesMatch = rxXMLAttributes.matchView(XML.sliced(Ptr,qMin(XMLmaxtaglen,XML.length()-Ptr)));
             const auto XMLAttributesMatch = rxXMLAttributes.matchView(XML.sliced(Ptr,XMLmaxtaglen));
 #endif
-            if (XMLAttributesMatch.capturedStart()!=0) break;
+            if (XMLAttributesMatch.capturedStart() != 0) break;
             appendAttributesString(XMLAttributesMatch.captured(1));
-            Ptr+=XMLAttributesMatch.capturedLength();
+            Ptr += XMLAttributesMatch.capturedLength();
             retVal=true;
         }
         forever
         {
-            const auto RemarkMatch = rxRemark.matchView(XML,Ptr);
-            if (RemarkMatch.capturedStart()!=Ptr) break;
+            const auto RemarkMatch = rxRemark.matchView(XML, Ptr);
+            if (RemarkMatch.capturedStart() != Ptr) break;
             comments.append(QDomLite::valueFromString(RemarkMatch.captured(1)));
-            Ptr+=RemarkMatch.capturedLength();
+            Ptr += RemarkMatch.capturedLength();
             retVal=true;
         }
         return retVal;
