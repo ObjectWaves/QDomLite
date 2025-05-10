@@ -1,0 +1,20 @@
+!contains(PROFILES,$$_FILE_){
+PROFILES+=$$_FILE_
+
+CONFIG += c++17
+QT += core
+
+greaterThan(QT_MAJOR_VERSION, 5){
+    QT += core5compat
+}
+
+DEFINES += QT_USE_QSTRINGBUILDER
+DEFINES += QT_USE_FAST_CONCATENATION
+DEFINES += QT_USE_FAST_OPERATOR_PLUS
+
+INCLUDEPATH += $$PWD
+
+HEADERS += $$PWD/qdomlite.h
+
+SOURCES +=
+}
