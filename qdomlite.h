@@ -1325,7 +1325,7 @@ public:
     }
     inline QDomLiteElement* exchangeDoc(QDomLiteElement* element)
     {
-        QDomLiteElement** t=&documentElement;
+        QDomLiteElement** t = &documentElement;
         documentElement = element;
         return *t;
     }
@@ -1371,24 +1371,24 @@ public:
     inline void fromString(const XMLStringClass& XML)
     {
         clear();
-        int Ptr=0;
-        while (appendComments(XML,Ptr)){}
-        const auto DocTypeMatch = rxdocType.matchView(XML,Ptr);
-        if (DocTypeMatch.capturedStart()==Ptr)
+        int Ptr = 0;
+        while (appendComments(XML, Ptr)){}
+        const auto DocTypeMatch = rxdocType.matchView(XML, Ptr);
+        if (DocTypeMatch.capturedStart() == Ptr)
         {
             docType=DocTypeMatch.captured(1);
             Ptr+=DocTypeMatch.capturedLength();
-            const auto EntityMatch = rxEntityTags.matchView(XML,Ptr-1);
-            if (EntityMatch.capturedStart()==Ptr-1)
+            const auto EntityMatch = rxEntityTags.matchView(XML, Ptr - 1);
+            if (EntityMatch.capturedStart() == Ptr - 1)
             {
                 const QString ent(EntityMatch.captured(1));
-                int eptr=0;
-                while (appendEntities(ent,eptr)){}
+                int eptr = 0;
+                while (appendEntities(ent, eptr)){}
                 Ptr+=EntityMatch.capturedLength();
             }
         }
-        while (appendComments(XML,Ptr)){}
-        documentElement->fromString(XML,Ptr);
+        while (appendComments(XML, Ptr)){}
+        documentElement->fromString(XML, Ptr);
     }
     inline QDomLiteDocument* clone() const { return new QDomLiteDocument(this); }
     inline void copy(const QDomLiteDocument* other)
@@ -1411,7 +1411,6 @@ public:
             {
                 RetVal+=QStringLiteral(" [\n");
                 for (auto it = entities.constKeyValueBegin(); it != entities.constKeyValueEnd(); it++)
-                //for (const QString& e : entities.keys())
                 {
 #if (QT_VERSION < QT_VERSION_CHECK(6, 0, 0))
                     RetVal+=QStringLiteral("<!ENTITY ")+it->first.midRef(1,it->first.size()-2)+QStringLiteral(" \"")+it->second+QStringLiteral("\">\n");
@@ -1435,15 +1434,14 @@ public:
         if (entities.isEmpty()) return text;
         QString retVal(text);
         for (auto it = entities.constKeyValueBegin(); it != entities.constKeyValueEnd(); it++) retVal.replace(it->first,it->second);
-        //for(const QString& e : entities.keys()) retVal.replace(e,entities[e]);
         return retVal;
     }
     inline void addEntity(const QString& entity, const QString& value)
     {
-        QString e=entity;
-        if (!e.startsWith('&')) e='&'+e;
-        if (!e.endsWith(';')) e+=';';
-        entities.insert(e,value);
+        QString e = entity;
+        if (!e.startsWith('&')) e = '&' + e;
+        if (!e.endsWith(';')) e += ';';
+        entities.insert(e, value);
     }
     QString docType;
     QDomLiteValueList comments;
